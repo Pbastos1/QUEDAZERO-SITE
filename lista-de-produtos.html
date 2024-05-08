@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Clientes QuedaZero</title>
+  <title>Produtos QuedaZero</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <style>
-      @keyframes fadeOut {
+    @keyframes fadeOut {
   0% {
     opacity: 1;
   }
@@ -36,11 +36,16 @@
     .table th, .table td {
       vertical-align: middle !important;
     }
-    .btn-right{
+    .btn1{
       float: right;
     }
     .btn {
       border-radius: 25px;
+      
+    }
+    .btn-info:hover{
+      background-color: rgb(14, 158, 241);
+      border-color: rgb(14, 158, 241);
     }
     .btn-primary {
       background-color: #6c757d;
@@ -62,21 +67,20 @@
 </head>
 <body>
 
-<div class="container">
-  <h1>Clientes</h1>
+<div id="container" class="container">
+  <h1>Produtos</h1>
   <table class="table table-striped">
     <thead class=" a">
       <tr>
-        <th>Avatar</th>
+        <th>Produtos</th>
         <th>Nome</th>
-        <th>Email</th>
-        <th>Telefone</th>
+        <th>Preços</th>
         <th>Status</th>
         <th>Ações</th>
       </tr>
     </thead>
     <tbody id="tbody">
-      <button onclick="window.location.href = 'index.html';" class="btn btn-info espc btn-right">Voltar</button>
+      <button onclick="window.location.href = 'index.html';" class="btn btn1 btn-info espc">Voltar</button>
     </tbody>
   </table>
 </div>
@@ -84,44 +88,38 @@
 <script>
   function criarTabela() {
     
-    const clientes = [
-      { avatar: "avatar1.png", nome: "Gabriel", sobrenome: " Silva", email: "gabriel@mail.com", telefone: "(21) 99529-7650", status: "Ativo" },
-      { avatar: "avatar3.jpg", nome: "Pablo", sobrenome: " Frazão", email: "pablo@mail.com", telefone: "(21) 96709-3152", status: "Processando" },
-      { avatar: "avatar2.png", nome: "Juliana", sobrenome: " Do Nascimento", email: "juliana@mail.com", telefone: "(21) 99981-5834", status: "Inativo" },
-      { avatar: "pato.png", nome: "Bernardo", sobrenome: " Telles", email: "bernardo@mail.com", telefone: "(21) 97654-3210", status: "Ativo" },
-      { avatar: "pato.png", nome: "Miguel", sobrenome: " Telles", email: "miguel@mail.com", telefone: "(21) 94587-1234", status: "Inativo" },
-      { avatar: "baiacu.png", nome: "Ivo", sobrenome: " Anthony", email: "ivo@mail.com", telefone: "(21) 98876-5432", status: "Processando" },
-      { avatar: "gato.png", nome: "Matheus", sobrenome: " Lucas", email: "matheus@mail.com", telefone: "(21) 98765-4321", status: "Ativo" },
-      { avatar: "sapo.png", nome: "Victor", sobrenome: " Hugo", email: "victor@mail.com", telefone: "(21) 94432-6789", status: "Inativo" },
-      { avatar: "romarin.png", nome: "Romarin", sobrenome: " Junior", email: "romarin@mail.com", telefone: "(21) 97654-2398", status: "Processando" },
-      { avatar: "cristiano.png", nome: "Cristiano", sobrenome: " Ronaldo", email: "cristiano@mail.com", telefone: "(21) 92234-5678", status: "Ativo" }
-    ];
+    const produtos = [
+      { avatar: "antiqueda.jpeg", nome: "Medicinol",preços: " R$249,90", status: "Processando" },
+      { avatar: "antiqueda2.jpeg", nome: "Urativa", preços: "  R$624,90", status: "Processando" },
+      { avatar: "bomba.jpeg", nome: "Bomba", preços: " R$350,00",status: "Processando" },
+      { avatar: "produto2.jpg", nome: "Loreal", preços: " R$ 299,90",  status: "Processando" },
+      { avatar: "produto3.png", nome: "Rootbi HO", preços: " R$ 534,90",status: "Processando" },
+      { avatar: "aa.png", nome: "Manual", preços: " R$ 99,99", status: "Processando" },
+  ]
 
     const tbody = document.getElementById('tbody');
-    clientes.forEach(function (objeto) {
+    produtos.forEach(function (objeto) {
       let tr = document.createElement('tr');
 
       let imagem = document.createElement('img');
       imagem.src = `imagens/${objeto.avatar}`;
-      imagem.height = 50;
+      imagem.height = 90;
       imagem.alt = "avatar";
-      imagem.style.borderRadius = "50%"; // Tornando a borda circular
+      imagem.style.borderRadius = "50%"; 
 
       let td0 = document.createElement('td');
       td0.append(imagem);
       tr.append(td0);
 
       let td1 = document.createElement('td');
-      td1.innerText = objeto.nome + objeto.sobrenome;
+      td1.innerText = objeto.nome;
       tr.append(td1);
 
       let td2 = document.createElement('td');
-      td2.innerText = objeto.email;
+      td2.innerText = objeto.preços;
       tr.append(td2);
+      
 
-      let td3 = document.createElement('td');
-      td3.innerText = objeto.telefone;
-      tr.append(td3);
 
       let td4 = document.createElement('td');
       td4.innerText = objeto.status;
@@ -138,7 +136,7 @@
       dropdownMenu.className = "dropdown-menu";
       dropdownMenu.setAttribute("aria-labelledby", "dropdownMenuButton");
 
-      let statusOptions = ["Ativo", "Inativo", "Processando"];
+      let statusOptions = ["Em estoque", "Fora de estoque", "Processando"];
 
       statusOptions.forEach(function(statusOption) {
         let dropdownItem = document.createElement('li');
@@ -158,19 +156,20 @@
       let btn1 = document.createElement('button');
       btn1.innerText = "Remover";
       btn1.className = "btn btn-danger ms-1";
-      btn1.addEventListener('click', function() {
-        var resultado = confirm("Você deseja remover o cliente?");
+      btn1.addEventListener('click', function(){
+        var resultado = confirm("Você deseja remover o produto?");
       if (resultado == true){
-        alert("O cliente será removido da lista!");
+        alert("O produto será removido da lista!");
         tr.classList.add('fade-out');
   setTimeout(function() {
     tr.remove();
   }, 450);
 }
 else{
-  return alert("Você desistiu de remover o cliente!")
+  return alert("Você desistiu de remover o produto!")
 }
-    });
+  
+      });
       td5.append(btn1);
       tr.append(td5);
 
