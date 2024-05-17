@@ -71,6 +71,7 @@
         <th>Nome</th>
         <th>Email</th>
         <th>Telefone</th>
+        <th>CEP</th>
         <th>Status</th>
         <th>Ações</th>
       </tr>
@@ -79,22 +80,138 @@
       <button onclick="window.location.href = 'index.html';" class="btn btn-info espc btn-right">Voltar</button>
     </tbody>
   </table>
+  <!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Modifique</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <!-- Início do body do modal -->
+        <div class="card mt-2">
+          <div class="card-header bg-secondary text-white">
+            <label for="Nome" class="form-label">Nome:</label>
+          </div>
+          <div class="card-body bg-light">
+            <input type="Nome" class="form-control" id="Nome" placeholder="Digite Nome" name="Nome">
+          </div> 
+        </div>
+        <div class="card mt-2">
+          <div class="card-header bg-secondary text-white">
+            <label for="Email" class="form-label">Email:</label>
+          </div>
+          <div class="card-body bg-light">
+            <input type="email" class="form-control" id="Email" placeholder="Digite Email" name="Email">
+          </div> 
+        </div>
+        <div class="card mt-2">
+          <div class="card-header bg-secondary text-white">
+            <label for="Telefone" class="form-label">Telefone:</label>
+          </div>
+          <div class="card-body bg-light">
+            <input type="tel" class="form-control" id="Telefone" placeholder="Digite Telefone" name="Telefone">
+          </div> 
+        </div>    
+        <!--inicio cep-->
+        <div class="card mt-2">
+          <div class="card-header bg-secondary text-white">
+            <label for="CEP" class="form-label">CEP:</label>
+          </div>
+          <div class="card-body bg-light">
+            <input type="CEP" class="form-control" id="cep" placeholder="Digite CEP" name="CEP">
+          </div> 
+
+          <div class="card mt-2">
+            <div class="card-header bg-secondary text-white">
+              <label for="Bairro" class="form-label">Bairro:</label>
+            </div>
+            <div class="card-body bg-light">
+              <input type="Bairro" class="form-control" id="bairro" placeholder="Digite Bairro" name="Bairro">
+            </div> 
+
+            <div class="card mt-2">
+              <div class="card-header bg-secondary text-white">
+                <label for="UFF" class="form-label">UFF:</label>
+              </div>
+              <div class="card-body bg-light">
+                <input type="UFF" class="form-control" id="uf" placeholder="Digite UFF" name="UFF">
+              </div> 
+
+              <div class="card mt-2">
+                <div class="card-header bg-secondary text-white">
+                  <label for="Rua" class="form-label">Rua:</label>
+                </div>
+                <div class="card-body bg-light">
+                  <input type="Rua" class="form-control" id="logradouro" placeholder="Digite Rua" name="Rua">
+                </div> 
+
+                <div class="card mt-2">
+                  <div class="card-header bg-secondary text-white">
+                    <label for="Cidade" class="form-label">Cidade:</label>
+                  </div>
+                  <div class="card-body bg-light">
+                    <input type="Cidade" class="form-control" id="localidade" placeholder="Digite Cidade" name="Cidade" value="">
+                  </div> 
+          <!--fim do cep-->
+
+        <div class="card mt-2">
+          <div class="card-header bg-secondary text-white">
+            <label for="nome" class="form-label">Status:</label>
+          </div>
+          <div class="card-body bg-light">
+            <input type="Status" class="form-control" id="Status" placeholder="Digite Status" name="Status">
+          </div> 
+      
+        <!-- fim do corpo do modal -->
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
 </div>
+</div><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
 
 <script>
+  $('#myModal').mouseenter( function(){
+    let cep = $('#cep').val()
+    $.ajax({
+       url:`https://viacep.com.br/ws/${cep}/json/`,
+       method: "get",
+       success: function(response) {
+          console.log(response)
+          $('#cep').val(response.cep)
+          $('#bairro').val(response.bairro)
+          $('#uf').val(response.uf)
+          $('#localidade').val(response.localidade)
+          $('#logradouro').val(response.logradouro)
+    }
+    
+})
+})
   function criarTabela() {
     
     const clientes = [
-      { avatar: "avatar1.png", nome: "Gabriel", sobrenome: " Silva", email: "gabriel@mail.com", telefone: "(21) 99529-7650", status: "Ativo" },
-      { avatar: "avatar3.jpg", nome: "Pablo", sobrenome: " Frazão", email: "pablo@mail.com", telefone: "(21) 96709-3152", status: "Processando" },
-      { avatar: "avatar2.png", nome: "Juliana", sobrenome: " Do Nascimento", email: "juliana@mail.com", telefone: "(21) 99981-5834", status: "Inativo" },
-      { avatar: "pato.png", nome: "Bernardo", sobrenome: " Telles", email: "bernardo@mail.com", telefone: "(21) 97654-3210", status: "Ativo" },
-      { avatar: "pato.png", nome: "Miguel", sobrenome: " Telles", email: "miguel@mail.com", telefone: "(21) 94587-1234", status: "Inativo" },
-      { avatar: "baiacu.png", nome: "Ivo", sobrenome: " Anthony", email: "ivo@mail.com", telefone: "(21) 98876-5432", status: "Processando" },
-      { avatar: "gato.png", nome: "Matheus", sobrenome: " Lucas", email: "matheus@mail.com", telefone: "(21) 98765-4321", status: "Ativo" },
-      { avatar: "sapo.png", nome: "Victor", sobrenome: " Hugo", email: "victor@mail.com", telefone: "(21) 94432-6789", status: "Inativo" },
-      { avatar: "romarin.png", nome: "Romarin", sobrenome: " Junior", email: "romarin@mail.com", telefone: "(21) 97654-2398", status: "Processando" },
-      { avatar: "cristiano.png", nome: "Cristiano", sobrenome: " Ronaldo", email: "cristiano@mail.com", telefone: "(21) 92234-5678", status: "Ativo" }
+      { avatar: "avatar1.png", nome: "Gabriel", sobrenome: " Silva", email: "gabriel@mail.com", telefone: "(21) 99529-7650",cep:"26150080", status: "Ativo" },
+      { avatar: "avatar3.jpg", nome: "Pablo", sobrenome: " Frazão", email: "pablo@mail.com", telefone: "(21) 96709-3152",cep:"22431080", status: "Processando" },
+      { avatar: "avatar2.png", nome: "Juliana", sobrenome: " Do Nascimento", email: "juliana@mail.com", telefone: "(21) 99981-5834",cep:"26020620", status: "Inativo" },
+      { avatar: "pato.png", nome: "Bernardo", sobrenome: " Telles", email: "bernardo@mail.com", telefone: "(21) 97654-3210",cep:"22790410", status: "Ativo" },
+      { avatar: "pato.png", nome: "Miguel", sobrenome: " Telles", email: "miguel@mail.com", telefone: "(21) 94587-1234",cep:"20561144", status: "Inativo" },
+      { avatar: "baiacu.png", nome: "Ivo", sobrenome: " Anthony", email: "ivo@mail.com", telefone: "(21) 98876-5432",cep:"21660005", status: "Processando" },
+      { avatar: "gato.png", nome: "Matheus", sobrenome: " Lucas", email: "matheus@mail.com", telefone: "(21) 98765-4321",cep:"23064250", status: "Ativo" },
+      { avatar: "sapo.png", nome: "Victor", sobrenome: " Hugo", email: "victor@mail.com", telefone: "(21) 94432-6789",cep:"28898466", status: "Inativo" },
+      { avatar: "romarin.png", nome: "Romarin", sobrenome: " Junior", email: "romarin@mail.com", telefone: "(21) 97654-2398",cep:"22450090", status: "Processando" },
+      { avatar: "cristiano.png", nome: "Cristiano", sobrenome: " Ronaldo", email: "cristiano@mail.com", telefone: "(21) 92234-5678",cep:"25011410", status: "Ativo" }
     ];
 
     const tbody = document.getElementById('tbody');
@@ -122,17 +239,21 @@
       let td3 = document.createElement('td');
       td3.innerText = objeto.telefone;
       tr.append(td3);
-
+      
       let td4 = document.createElement('td');
-      td4.innerText = objeto.status;
+      td4.innerText = objeto.cep;
       tr.append(td4);
 
       let td5 = document.createElement('td');
+      td5.innerText = objeto.status;
+      tr.append(td5);
+
+      let td6 = document.createElement('td');
       let btn = document.createElement('button');
       btn.innerText = "Editar";
       btn.className = "btn btn-primary dropdown-toggle";
       btn.setAttribute("data-bs-toggle", "dropdown");
-      td5.append(btn);
+      td6.append(btn);
 
       let dropdownMenu = document.createElement('ul');
       dropdownMenu.className = "dropdown-menu";
@@ -147,13 +268,13 @@
         dropdownLink.innerText = statusOption;
         dropdownLink.addEventListener('click', function() {
           objeto.status = statusOption;
-          td4.innerText = statusOption;
+          td5.innerText = statusOption;
         });
         dropdownItem.appendChild(dropdownLink);
         dropdownMenu.appendChild(dropdownItem);
       });
 
-      td5.appendChild(dropdownMenu);
+      td6.appendChild(dropdownMenu);
         
       let btn1 = document.createElement('button');
       btn1.innerText = "Remover";
@@ -171,14 +292,48 @@ else{
   return alert("Você desistiu de remover o cliente!")
 }
     });
-      td5.append(btn1);
-      tr.append(td5);
+
+    let btn_editar = document.createElement('button');
+      btn_editar.className = "btn btn-warning editar"
+      btn_editar.innerText = "Editar"
+
+      td6.append(btn1);
+      td6.append(btn_editar)
+      tr.append(td6);
+
 
       tbody.append(tr);
     });
   }
 
   window.onload = criarTabela;
+
+  $(document).ready(function(){
+
+    $('.editar').on('click', function(){
+        let modal = document.getElementById('myModal')
+        var myModal = new bootstrap.Modal(modal)
+        myModal.show()
+
+      let tr = $(this).closest('tr')
+      $('#Nome').val($(tr).find("td").eq(1).html())
+
+      let tr2 = $(this).closest('tr2')
+      $('#Email').val($(tr).find("td").eq(2).html())
+
+      let tr3 = $(this).closest('tr3')
+      $('#Telefone').val($(tr).find("td").eq(3).html())
+
+      let tr4 = $(this).closest('tr4')
+      $('#cep').val($(tr).find("td").eq(4).html())
+
+      let tr5 = $(this).closest('tr5')
+      $('#Status').val($(tr).find("td").eq(5).html())
+    })
+
+  });
+  
+ 
 </script>
 
 </body>
